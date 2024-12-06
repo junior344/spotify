@@ -17,8 +17,7 @@ Ce projet est une application web intégrée avec l'API Spotify. Il permet aux u
 ## Installation
 1. Clonez le dépôt :
     ```bash
-    git clone https://github.com/votre-utilisateur/spotify-integration.git
-    cd SPOTIFY
+    git clone https://github.com/junior344/spotify.git
     ```
 
 2. Installez les dépendances :
@@ -67,7 +66,7 @@ Ce projet est une application web intégrée avec l'API Spotify. Il permet aux u
 Les contributions sont les bienvenues ! Veuillez soumettre une pull request ou ouvrir une issue pour discuter des changements que vous souhaitez apporter.
 
 ## Licence
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](Copyright 2024 josias
+Copyright 2024 josias
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
