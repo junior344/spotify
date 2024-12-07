@@ -1,1 +1,1 @@
-web: node index.mts
+web: ts-node index.mts
