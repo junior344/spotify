@@ -7,6 +7,8 @@ import session from 'express-session';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+const RedisStore = require('connect-redis')(session);
+import redis from 'redis';
 dotenv.config();
 const port = process.env.PORT || 3000;
 const app = express();
@@ -16,6 +18,7 @@ app.use(fileUpload());
 app.use(express.static('public'));
 app.set('trust proxy', 1); // trust first proxy
 app.use(session({
+    store: new RedisStore({ client: redis.createClient() }),
     secret: process.env.SESSION_SECRET || 'default-secret',
     resave: false,
     saveUninitialized: true,
@@ -31,6 +34,10 @@ const spotifyApi = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     redirectUri: process.env.REDIRECT_URI,
+});
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    next();
 });
 // Middleware pour s'assurer que l'utilisateur est authentifié
 app.get('/', (req, res) => {
