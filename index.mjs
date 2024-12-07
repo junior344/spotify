@@ -8,7 +8,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 dotenv.config();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 app.use(express.urlencoded({ extended: true })); //
 app.use(express.json());
@@ -19,7 +19,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET || 'default-secret',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === 'developpement' } // secure: true pour HTTPS
+    cookie: { secure: process.env.NODE_ENV === 'developement' } // secure: true pour HTTPS
 }));
 // Obtenir le chemin du fichier courant
 const __filename = fileURLToPath(import.meta.url);
