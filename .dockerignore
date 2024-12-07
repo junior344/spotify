@@ -1,0 +1,9 @@
+.env
+node_modules 
+.dist 
+.dist copy
+.vscode
+.vercel.json
+.DS_Store
+heroku.yml
+.vercel
