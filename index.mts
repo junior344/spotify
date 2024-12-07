@@ -33,9 +33,16 @@ app.use(session({
   secret: process.env.SESSION_SECRET|| 'default-secret' as string,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: process.env.NODE_ENV === 'production' } // secure: true pour HTTPS
+  cookie: { secure: process.env.NODE_ENV === 'production', httpOnly: true, sameSite: 'strict' } // secure: true pour HTTPS
 }))
 
+// Middleware pour forcer HTTPS
+app.use((req: Request, res: Response, next: NextFunction) => {
+  if (process.env.NODE_ENV === 'production' && req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect(`https://${req.headers.host}${req.url}`);
+  }
+  next();
+});
 
 // Obtenir le chemin du fichier courant
 const __filename = fileURLToPath(import.meta.url);
