@@ -7,8 +7,8 @@ import session from 'express-session';;
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-const RedisStore = require('connect-redis')(session);
-import redis from 'redis';
+
+// import Redis from 'connect-redis';
 
 dotenv.config();
 
@@ -26,10 +26,10 @@ app.use(fileUpload());
 app.use(express.static('public'));
 app.set('trust proxy', 1) // trust first proxy
 
-
+// const RedisStore = Redis(session);
 
 app.use(session({
-  store: new RedisStore({ client: redis.createClient() }),
+  store: new session.MemoryStore(), 
   secret: process.env.SESSION_SECRET|| 'default-secret' as string,
   resave: false,
   saveUninitialized: true,
