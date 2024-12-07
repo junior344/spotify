@@ -28,7 +28,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET|| 'default-secret' as string,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: process.env.NODE_ENV === 'developement' } // secure: true pour HTTPS
+  cookie: { secure: process.env.NODE_ENV === 'development' } // secure: true pour HTTPS
 }))
 
 

@@ -19,7 +19,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET || 'default-secret',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === 'developement' } // secure: true pour HTTPS
+    cookie: { secure: process.env.NODE_ENV === 'development' } // secure: true pour HTTPS
 }));
 // Obtenir le chemin du fichier courant
 const __filename = fileURLToPath(import.meta.url);
