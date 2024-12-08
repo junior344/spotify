@@ -16,13 +16,16 @@ app.use(express.json());
 app.use(fileUpload());
 app.use(express.static('public'));
 app.set('trust proxy', 1); // trust first proxy
-// const RedisStore = Redis(session);
 app.use(session({
     store: new session.MemoryStore(),
     secret: process.env.SESSION_SECRET || 'default-secret',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === 'production' } // secure: true pour HTTPS
+    cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
+        maxAge: 60000,
+    } // secure: true pour HTTPS
 }));
 // Obtenir le chemin du fichier courant
 const __filename = fileURLToPath(import.meta.url);
