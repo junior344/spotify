@@ -6,7 +6,7 @@ import  CustomRequest  from '../models/CustomRequest';
 import catchAsync from '../helpers/isAutho'; 
 
 import scopes from '../model/model.mjs';
-
+console.log(process.env.REDIRECT_URL);
 dotenv.config();
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.CLIENT_ID,

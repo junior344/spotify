@@ -1,4 +1,4 @@
-import AppController  from '../controller/login.controller.mjs';
+import AppController from '../controller/login.controller.mjs';
 import express from 'express';
 
 

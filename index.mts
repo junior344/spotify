@@ -8,11 +8,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 
-// import Redis from 'connect-redis';
+
+
 
 dotenv.config();
-
-
 
 
 
@@ -27,17 +26,16 @@ app.use(express.static('public'));
 app.set('trust proxy', 1) // trust first proxy
 
 
-
-
 app.use(session({
   store: new session.MemoryStore(), 
   secret: process.env.SESSION_SECRET|| 'default-secret' as string,
   resave: false,
   saveUninitialized: true,
   cookie: { 
+    sameSite: 'strict',
     secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
-    maxAge: 60000,
+    maxAge: 1000 * 60 * 60, // 1 hour
   } // secure: true pour HTTPS
 }))
 
@@ -59,15 +57,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   next();
 });
- 
-// Middleware pour s'assurer que l'utilisateur est authentifié
-app.get('/',(req:Request, res:Response) => {
-    res.redirect('/index');
-})
 
 app.use('/', AppRoutes);
 
-app.use((req:Request, res:Response) => {
+app.use((req: Request, res: Response) => {
     res.status(404).send('404 Not Found');
 });
 app.listen(port, ()=>{

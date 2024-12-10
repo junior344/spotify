@@ -1,10 +1,12 @@
 // Fonction pour récupérer les données de l'utilisateur
 function getMyData() {
+    showLoader();
     fetch('/access') // Appelle la route exposée par le backend
         .then((response) => {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
+        hideLoader();
         return response.json(); // Parse les données en JSON
     })
         .then((data) => {
@@ -257,6 +259,12 @@ function showPlaylist(playList) {
         };
         IFrameAPI.createController(embedIframe, options, callback);
     };
+}
+function showLoader() {
+    document.getElementById("loader")?.classList.remove("hidden");
+}
+function hideLoader() {
+    document.getElementById("loader")?.classList.add("hidden");
 }
 getMyData();
 export {};

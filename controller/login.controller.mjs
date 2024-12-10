@@ -1,6 +1,7 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import dotenv from 'dotenv';
 import scopes from '../model/model.mjs';
+console.log(process.env.REDIRECT_URL);
 dotenv.config();
 const spotifyApi = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,

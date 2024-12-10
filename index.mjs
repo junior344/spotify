@@ -7,7 +7,6 @@ import session from 'express-session';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-// import Redis from 'connect-redis';
 dotenv.config();
 const port = process.env.PORT || 3000;
 const app = express();
@@ -22,9 +21,10 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
+        sameSite: 'strict',
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
-        maxAge: 60000,
+        maxAge: 1000 * 60 * 60, // 1 hour
     } // secure: true pour HTTPS
 }));
 // Obtenir le chemin du fichier courant
@@ -41,10 +41,6 @@ const spotifyApi = new SpotifyWebApi({
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     next();
-});
-// Middleware pour s'assurer que l'utilisateur est authentifié
-app.get('/', (req, res) => {
-    res.redirect('/index');
 });
 app.use('/', AppRoutes);
 app.use((req, res) => {
